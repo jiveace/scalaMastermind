@@ -7,7 +7,7 @@ class MastermindCodeBreaker {
   }
 
   private def valueMatches(code: List[Int], guess: List[Int]) = {
-    guess.count(x => code.toSet.contains(x))
+    guess.toSet.count(x => code.toSet.contains(x))
   }
 
   private def positionalMatches(code: List[Int], guess: List[Int]) = {
