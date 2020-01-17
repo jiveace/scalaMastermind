@@ -22,4 +22,9 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
     assert(mind.breakCode(List(0, 0, 0, 0), List(0, 0, 0, 1)) === (3, 0))
     assert(mind.breakCode(List(1, 2, 3, 4), List(1, 2, 3, 4)) === (4, 0))
   }
+
+  "Mastermind" must "score guess with one value match " in {
+    assert(mind.breakCode(List(1, 2, 3, 4), List(2,0,0,0)) === (0, 1))
+  }
+
 }
