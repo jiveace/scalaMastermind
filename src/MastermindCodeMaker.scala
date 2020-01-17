@@ -1,6 +1,6 @@
-class MastermindCodeBreaker {
+class MastermindCodeMaker {
 
-  def breakCode(code: List[Int], guess: List[Int]): (Int, Int) = {
+  def score(code: List[Int], guess: List[Int]): (Int, Int) = {
     val p = positionalMatches(code, guess)
     val v = valueMatches(code, guess)
     (p, Math.max(0, v - p))
