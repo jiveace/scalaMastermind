@@ -3,7 +3,7 @@ class MastermindCodeBreaker {
   def breakCode(code: List[Int], guess: List[Int]): (Int, Int) = {
     val p = positionalMatches(code, guess)
     val v = valueMatches(code, guess)
-    (p, v - p)
+    (p, Math.max(0, v - p))
   }
 
   private def valueMatches(code: List[Int], guess: List[Int]) = {
