@@ -24,8 +24,12 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
     assert(mind.numberToGuess(1295) === List(5, 5, 5, 5))
   }
 
-  ignore must "increment a guess to represent the next base 6 number" in {
+  "incrementGuess" must "increment a guess to represent the next base 6 number" in {
     assert(mind.incrementGuess(List(0, 0, 0, 0)) === List(0, 0, 0, 1))
+    assert(mind.incrementGuess(List(0, 0, 0, 5)) === List(0, 0, 1, 0))
+    assert(mind.incrementGuess(List(0, 0, 5, 5)) === List(0, 1, 0, 0))
+    assert(mind.incrementGuess(List(0, 5, 5, 5)) === List(1, 0, 0, 0))
+    assert(mind.incrementGuess(List(5, 5, 5, 5)) === List(0, 0, 0, 0))
   }
 
   "breakCode" must "initialise with a base 6 0" in {

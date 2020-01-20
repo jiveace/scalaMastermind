@@ -5,7 +5,8 @@ class MasterMindCodeBreaker() {
   def breakCode(value: List[Nothing]): List[Int] =
     List(0, 0, 0, 1)
 
-  def incrementGuess(value: List[Int]): List[Int] = ???
+  def incrementGuess(value: List[Int]): List[Int] =
+    numberToGuess(guessToNumber(value)+1)
 
 
   def guessToNumber(guess: List[Int]): Int =
