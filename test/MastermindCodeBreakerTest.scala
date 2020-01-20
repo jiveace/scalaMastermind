@@ -33,6 +33,10 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
   }
 
   "breakCode" must "initialise with a base 6 0" in {
-    assert(mind.breakCode(List()) === List(0, 0, 0, 1))
+    assert(mind.breakCode(List(), null) === List(0, 0, 0, 0))
+  }
+
+  "breakCode" should "have a first step for code [1,2,3,4]" in {
+    assert(mind.breakCode(List(0,0,0,0), (0,0)) === List(1, 1, 1, 1))
   }
 }
