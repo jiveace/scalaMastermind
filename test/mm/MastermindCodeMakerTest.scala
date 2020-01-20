@@ -1,3 +1,5 @@
+package mm
+
 import org.scalatest.flatspec.AnyFlatSpec
 
 class MastermindCodeMakerTest extends AnyFlatSpec {

@@ -1,3 +1,5 @@
+package mm
+
 class MastermindCodeMaker {
 
   def score(code: List[Int], guess: List[Int]): (Int, Int) = {
