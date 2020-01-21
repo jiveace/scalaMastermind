@@ -2,14 +2,23 @@ package mm
 
 class MastermindCodeMaker {
 
+  def countOf(target: Int, values: List[Int]) =
+    values.count(_ == target)
+
+  def overcount(code: List[Int], guess: List[Int]) = {
+    val codeSet = code.toSet
+    codeSet.map(x => countOf(x, guess) - countOf(x, code)).filter(_ > 0).reduceOption(_ + _)
+  }
+
   def score(code: List[Int], guess: List[Int]): (Int, Int) = {
     val p = positionalMatches(code, guess)
     val v = valueMatches(code, guess)
-    (p, Math.max(0, v - p))
+    val oc = overcount(code, guess)
+    (p, v - p - oc.getOrElse(0))
   }
 
   private def valueMatches(code: List[Int], guess: List[Int]) = {
-    guess.toSet.count(x => code.toSet.contains(x))
+    guess.count(x => code.contains(x))
   }
 
   private def positionalMatches(code: List[Int], guess: List[Int]) = {

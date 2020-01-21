@@ -34,7 +34,10 @@ class MastermindCodeMakerTest extends AnyFlatSpec {
   }
 
   "Mastermind" must "score guess with some position and some value matches" in {
+    assert(mind.score(List(0, 0, 1, 0), List(0,0,0,1)) === (2, 2))
     assert(mind.score(List(1, 2, 3, 4), List(1,2,4,3)) === (2, 2))
     assert(mind.score(List(1, 2, 3, 4), List(3,3,3,4)) === (2, 0))
+    assert(mind.score(List(1, 1, 2, 3), List(1,2,1,2)) === (1, 2))
+    assert(mind.score(List(3, 3, 3, 3), List(3,1,1,1)) === (1, 0))
   }
 }
