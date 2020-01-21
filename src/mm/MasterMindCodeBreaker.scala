@@ -1,7 +1,5 @@
 package mm
 
-import mm.MastermindCodeMaker
-
 class MasterMindCodeBreaker() {
   def numberToGuess(n: Int): List[Int] =
     List((n / 216) % 6, (n / 36) % 6, (n / 6) % 6, n % 6)
