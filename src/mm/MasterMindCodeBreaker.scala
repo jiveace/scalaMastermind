@@ -9,7 +9,7 @@ class MasterMindCodeBreaker() {
 
     def helper(guess: List[Int]): List[Int] =
       if (guess == List(0, 0, 0, 0)) throw new IllegalStateException("guess has looped around to (0,0,0,0)")
-      else if (mind.score(code = guess, guess = history.head._1) == history.head._2) guess
+      else if (history.map(x => mind.score(code = guess, guess = x._1) == x._2).count(!_) == 0) guess
       else {
         println(s"TargetScore: ${history.head._2}  Code:${guess} Guess:${history.head._1}  Result:${mind.score(code = guess, guess = history.head._1)}   ${history.head._2}")
         helper(incrementGuess(guess))
