@@ -51,7 +51,7 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
 
   "breakCode" should "have a first step for code [0,0,1,0]" in {
     assert(mind.breakCode(List(0, 0, 0, 1),
-      (List((List(0, 0, 0, 1), (2, 2))))) === List(0, 0, 0, 1))
+      (List((List(0, 0, 0, 1), (2, 2))))) === List(0, 0, 1, 0))
   }
 
 }
