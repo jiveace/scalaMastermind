@@ -12,7 +12,7 @@ class AutoPlayTest extends AnyFlatSpec with MockitoSugar {
 
   "AutoPlay" must "if initial guess is correct, return 1" in {
     when(mockCodeGenerator.generate) thenReturn List(0, 0, 0, 0)
-    when(mockMaker.score(List(0,0,0,0), List(0,0,0,0))) thenReturn ((4,0))
+    when(mockMaker.score(List(0, 0, 0, 0), List(0, 0, 0, 0))) thenReturn ((4, 0))
     when(mockBreaker.breakCode(null, List())) thenReturn List(0, 0, 0, 0)
 
     assert(autoPlay.play() === 1)
@@ -23,5 +23,12 @@ class AutoPlayTest extends AnyFlatSpec with MockitoSugar {
     val autoPlay = new AutoPlay(new MastermindCodeMaker, new MasterMindCodeBreaker, mockCodeGenerator)
 
     assert(autoPlay.play() === 2)
+  }
+
+  "AutoPlay" must "take three tries if code is [0,0,1,0]" in {
+    when(mockCodeGenerator.generate) thenReturn List(0, 0, 1, 0)
+    val autoPlay = new AutoPlay(new MastermindCodeMaker, new MasterMindCodeBreaker, mockCodeGenerator)
+
+    assert(autoPlay.play() === 3)
   }
 }
