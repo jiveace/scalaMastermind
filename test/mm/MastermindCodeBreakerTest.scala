@@ -35,27 +35,27 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
   }
 
   "breakCode" must "initialise with a base 6 0" in {
-    assert(mind.breakCode(null,
+    assert(mind.breakCodeSeq(null,
       List()) === List(0, 0, 0, 0))
   }
 
   "breakCode" should "have a first step for code [1,2,3,4]" in {
-    assert(mind.breakCode(List(0, 0, 0, 0),
+    assert(mind.breakCodeSeq(List(0, 0, 0, 0),
       (List((List(0, 0, 0, 0), (0, 0))))) === List(1, 1, 1, 1))
   }
 
   "breakCode" should "have a first step for code [0,0,0,1]" in {
-    assert(mind.breakCode(List(0, 0, 0, 0),
+    assert(mind.breakCodeSeq(List(0, 0, 0, 0),
       (List((List(0, 0, 0, 0), (3, 0))))) === List(0, 0, 0, 1))
   }
 
   "breakCode" should "have a first step for code [0,0,1,0]" in {
-    assert(mind.breakCode(List(0, 0, 0, 1),
+    assert(mind.breakCodeSeq(List(0, 0, 0, 1),
       (List((List(0, 0, 0, 1), (2, 2))))) === List(0, 0, 1, 0))
   }
 
   "breakCode" should "have the correct first two steps for code [0,0,1,0]" in {
-    assert(mind.breakCode(List(0, 0, 0, 1),
+    assert(mind.breakCodeSeq(List(0, 0, 0, 1),
       (List(
         (List(0, 0, 0, 0), (3, 0)),
         (List(0, 0, 0, 1), (2, 2))
