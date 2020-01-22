@@ -34,32 +34,71 @@ class MastermindCodeBreakerTest extends AnyFlatSpec {
     assert(mind.incrementGuess(List(5, 5, 5, 5)) === List(0, 0, 0, 0))
   }
 
-  "breakCode" must "initialise with a base 6 0" in {
+  "breakCodeSeq" must "initialise with a base 6 0" in {
     assert(mind.breakCodeSeq(null,
       List()) === List(0, 0, 0, 0))
   }
 
-  "breakCode" should "have a first step for code [1,2,3,4]" in {
+  "breakCodeSeq" should "have a first step for code [1,2,3,4]" in {
     assert(mind.breakCodeSeq(List(0, 0, 0, 0),
       (List((List(0, 0, 0, 0), (0, 0))))) === List(1, 1, 1, 1))
   }
 
-  "breakCode" should "have a first step for code [0,0,0,1]" in {
+  "breakCodeSeq" should "have a first step for code [0,0,0,1]" in {
     assert(mind.breakCodeSeq(List(0, 0, 0, 0),
       (List((List(0, 0, 0, 0), (3, 0))))) === List(0, 0, 0, 1))
   }
 
-  "breakCode" should "have a first step for code [0,0,1,0]" in {
+  "breakCodeSeq" should "have a first step for code [0,0,1,0]" in {
     assert(mind.breakCodeSeq(List(0, 0, 0, 1),
       (List((List(0, 0, 0, 1), (2, 2))))) === List(0, 0, 1, 0))
   }
 
-  "breakCode" should "have the correct first two steps for code [0,0,1,0]" in {
+  "breakCodeSeq" should "have the correct first two steps for code [0,0,1,0]" in {
     assert(mind.breakCodeSeq(List(0, 0, 0, 1),
       (List(
         (List(0, 0, 0, 0), (3, 0)),
         (List(0, 0, 0, 1), (2, 2))
       ))) === List(0, 0, 1, 0))
+  }
+
+
+  "breakCode3x2" should "try [0,0,1,1] as its first step" in {
+    assert(mind.breakCode3x2(null, List()) === List(0, 0, 1, 1))
+  }
+
+  "breakCodeSeq" should "try [2,2,3,3] as it's second step" in {
+    assert(mind.breakCode3x2(List(0, 0, 1, 1),
+      (List(
+        (List(0, 0, 1, 1), (0, 0))
+      ))) === List(2, 2, 3, 3))
+  }
+
+  "breakCodeSeq" should "try [4,4,5,5] as it's third step" in {
+    assert(mind.breakCode3x2(List(0, 0, 1, 1),
+      (List(
+        (List(0, 0, 1, 1), (0, 0)),
+        (List(2, 2, 3, 3), (0, 0))
+      ))) === List(4, 4, 5, 5))
+  }
+
+  "breakCodeSeq" should "fall back to sequential on step 4" in {
+    assert(mind.breakCode3x2(List(0, 0, 1, 1),
+      (List(
+        (List(0, 0, 1, 1), (0, 0)),
+        (List(2, 2, 3, 3), (0, 0)),
+        (List(4, 4, 5, 5), (0, 4))
+      ))) === List(5, 5, 4, 4))
+  }
+
+  "breakCodeSeq" should "fall back to sequential on step 5" in {
+    assert(mind.breakCode3x2(List(0, 0, 1, 1),
+      (List(
+        (List(0, 0, 1, 1), (0, 0)),
+        (List(2, 2, 3, 3), (0, 0)),
+        (List(4, 4, 5, 5), (2, 2)),
+        (List(4, 5, 4, 5), (0, 4))
+      ))) === List(5, 4, 5, 4))
   }
 
 }

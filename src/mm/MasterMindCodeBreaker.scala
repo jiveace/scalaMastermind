@@ -18,6 +18,14 @@ class MasterMindCodeBreaker() {
     else nextGuess(lastGuess, history)
   }
 
+  def breakCode3x2(lastGuess: List[Int], history: List[(List[Int], (Int, Int))]): List[Int] =
+    history.size match {
+      case 0 => List(0, 0, 1, 1)
+      case 1 => List(2, 2, 3, 3)
+      case 2 => List(4, 4, 5, 5)
+      case _ => nextGuess(lastGuess, history)
+    }
+
   def incrementGuess(value: List[Int]): List[Int] =
     numberToGuess(guessToNumber(value) + 1)
 
