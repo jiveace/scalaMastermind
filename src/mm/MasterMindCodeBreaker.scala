@@ -26,6 +26,14 @@ class MasterMindCodeBreaker() {
       case _ => nextGuess(lastGuess, history)
     }
 
+  def breakCodeDoubleRainbow(lastGuess: List[Int], history: List[(List[Int], (Int, Int))]): List[Int] =
+    history.size match {
+      case 0 => List(0, 1, 2, 3)
+      case 1 => List(2, 3, 4, 5)
+      case 2 => List(4, 5, 0, 1)
+      case _ => nextGuess(lastGuess, history)
+    }
+
   def incrementGuess(value: List[Int]): List[Int] =
     numberToGuess(guessToNumber(value) + 1)
 
