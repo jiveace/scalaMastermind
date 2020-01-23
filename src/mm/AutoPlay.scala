@@ -28,22 +28,28 @@ class AutoPlay(maker: MastermindCodeMaker, breaker: MasterMindCodeBreaker, codes
   def square(n: Int) = n * n
 
   def mean(n: List[Int]) =
-    n.reduce(_ + _) / n.size
+    n.reduce(_ + _)*1.0 / n.size
 
   def median(n: List[Int]) =
     n(n.size / 2)
 
-  def histogram(n: List[Int]): List[(Int)] =
-    n.groupBy(x => x).toList.map(x => x._2.size)
+  def histogram(n: List[Int]): List[(Int, Int)] =
+    n.groupBy(x => x).toList.map(x => (x._1,x._2.size)).sortWith(_._1 < _._1)
 
-  def expectedTurns(n: Int) = {
-    val scores = (1 to n).map(_ => playSeq()).sortWith(_ < _).toList
+  def analyseStrategy(n: Int, strategy: () => Int) = {
+    val scores = (1 to n).map(_ => strategy()).sortWith(_ < _).toList
     Map(("mean", mean(scores)),
       ("min", scores.head),
       ("max", scores(scores.length - 1)),
       ("median", median(scores)),
       ("hist", histogram(scores)),
     )
+  }
+
+  def analyseStrategies(n: Int) = {
+    println(s"Seq: ${analyseStrategy(n, playSeq)}")
+    println(s"3x2: ${analyseStrategy(n, play3x2)}")
+    println(s"DR:  ${analyseStrategy(n, playDoubleRainbow)}")
   }
 }
 
