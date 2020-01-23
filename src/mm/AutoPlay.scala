@@ -7,7 +7,7 @@ class AutoPlay(maker: MastermindCodeMaker, breaker: MasterMindCodeBreaker, codes
 
   def playDoubleRainbow() = play("DoubleRainbow")
 
-  def play(algorithm: String) = {
+  private def play(algorithm: String) = {
     val code = codes.generate
 
     def helper(pastScores: List[(List[Int], (Int, Int))], lastGuess: List[Int], count: Int): Int = {
