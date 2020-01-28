@@ -11,7 +11,7 @@ class AutoPlay(maker: MastermindCodeMaker, breaker: MasterMindCodeBreaker, codes
     val code = codes.generate
 
     def helper(pastScores: List[(List[Int], (Int, Int))], lastGuess: List[Int], count: Int): Int = {
-      val guess = algorithm match  {
+      val guess = algorithm match {
         case "3x2" => breaker.breakCode3x2(lastGuess, pastScores)
         case "DoubleRainbow" => breaker.breakCodeDoubleRainbow(lastGuess, pastScores)
         case _ => breaker.breakCodeSeq(lastGuess, pastScores)
@@ -28,13 +28,21 @@ class AutoPlay(maker: MastermindCodeMaker, breaker: MasterMindCodeBreaker, codes
   def square(n: Int) = n * n
 
   def mean(n: List[Int]) =
-    n.reduce(_ + _)*1.0 / n.size
+    n.reduce(_ + _) * 1.0 / n.size
+
+  def meanDouble(n: List[Double]) =
+    n.reduce(_ + _) * 1.0 / n.size
 
   def median(n: List[Int]) =
     n(n.size / 2)
 
+  def standardDeviation(n: List[Int]): Double = {
+    val mn: Double = mean(n)
+    Math.sqrt(meanDouble(n.map(x => x - mn).map(x => x * x)))
+  }
+
   def histogram(n: List[Int]): List[(Int, Int)] =
-    n.groupBy(x => x).toList.map(x => (x._1,x._2.size)).sortWith(_._1 < _._1)
+    n.groupBy(x => x).toList.map(x => (x._1, x._2.size)).sortWith(_._1 < _._1)
 
   def analyseStrategy(n: Int, strategy: () => Int) = {
     val scores = (1 to n).map(_ => strategy()).sortWith(_ < _).toList
@@ -42,7 +50,8 @@ class AutoPlay(maker: MastermindCodeMaker, breaker: MasterMindCodeBreaker, codes
       ("min", scores.head),
       ("max", scores(scores.length - 1)),
       ("median", median(scores)),
-      ("hist", histogram(scores)),
+      ("standard deviation", standardDeviation(scores)),
+      ("hist", histogram(scores))
     )
   }
 
